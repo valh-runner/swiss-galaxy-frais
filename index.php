@@ -4,6 +4,7 @@
 
 define('DS', '/');
 define('URLROOT', 'http://'.$_SERVER['HTTP_HOST'].DS); //      http://alias/
+define('ROOT', dirname($_SERVER['SCRIPT_FILENAME']).DS); //	F:/virtualhosts/alias/
 
 #CORE
 
@@ -80,15 +81,6 @@ if( !empty($url['page'])){
 	}
 }
 
-
-
-
-
-
-
-include("vues/v_entete.php") ;
-
 #CONTROLLER INVOCATION
-$oController = new $controllerName($url['action'], $url['params']); //controller instanciation
 
-include("vues/v_pied.php") ;
+$oController = new $controllerName($url['action'], $url['params']); //controller instanciation
