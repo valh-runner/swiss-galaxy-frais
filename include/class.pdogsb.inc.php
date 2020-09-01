@@ -37,6 +37,7 @@ class PdoGsb
 	{
 		try {
 			PdoGsb::$monPdo = new PDO(PdoGsb::$serveur . ';' . PdoGsb::$bdd, PdoGsb::$user, PdoGsb::$mdp);
+			PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // affichage des erreurs PDO
 			PdoGsb::$monPdo->query("SET CHARACTER SET utf8");
 		} catch (PDOException $e) {
 			echo "Erreur!: " . $e->getMessage() . "<br/>";
@@ -254,8 +255,7 @@ class PdoGsb
 	public function creeNouveauFraisHorsForfait($idVisiteur, $mois, $libelle, $date, $montant)
 	{
 		$dateFr = dateFrancaisVersAnglais($date);
-		$req = "insert into lignefraishorsforfait 
-		values('','$idVisiteur','$mois','$libelle','$dateFr','$montant')";
+		$req = "insert into lignefraishorsforfait values(null,'$idVisiteur','$mois','$libelle','$dateFr','$montant')";
 		PdoGsb::$monPdo->exec($req);
 	}
 	/**

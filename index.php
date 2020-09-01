@@ -1,32 +1,94 @@
 <?php
-session_start();
 
+#PATHS
+
+define('DS', '/');
+define('URLROOT', 'http://'.$_SERVER['HTTP_HOST'].DS); //      http://alias/
+
+#CORE
+
+require_once('core/controller.class.php');
 require_once("include/fct.inc.php");
 require_once("include/class.pdogsb.inc.php");
+session_start();
+
+#DISPATCHER
+
+// $urlParts = explode('/', strtolower($_GET['rewrite'])); //url explosion
+$urlParts = explode('/', $_GET['rewrite']); //url explosion
+foreach($urlParts as $urlPart){ //for each url part
+    $urlPart = htmlspecialchars(trim($urlPart)); //sanitization
+}
+$url = array('page' => null, 'action' => null, 'params' => array()); //default link structuration
+//asked link construction
+if(count($urlParts) > 0){ $url['page'] = $urlParts[0]; }
+if(count($urlParts) > 1){ $url['action'] = $urlParts[1]; }
+if(count($urlParts) > 2){
+	$params = array_slice($urlParts, 2);
+    foreach($params as $param){
+        if(!empty($param)){
+            $url['params'][] = $param;
+        }
+    }
+}
+
+#ROUTER
 
 $pdo = PdoGsb::getPdoGsb();
 $estConnecte = estConnecte();
 
-# si pas d'action demandée ou n'est pas connecté
-if(!isset($_REQUEST['uc']) || !$estConnecte){
-    $uc = 'connexion';
-}else{
-	$uc = $_REQUEST['uc'];
+//if page specified
+if( !empty($url['page'])){
+	
+	$controllerPath = 'controleurs/'.$url['page'].'_controller.class.php';
+	// if page exists
+	if(is_file($controllerPath)){
+		require_once($controllerPath); //load controller of page
+		$controllerName = ucfirst($url['page']).'_controller';
+		
+		// if action specified
+		if(!empty($url['action'])){
+			$methodName = lcfirst(implode(array_map('ucfirst', explode('_', $url['action']))));
+			// if action exists
+			if(method_exists($controllerName, $methodName)){
+				//if user logged
+				if($estConnecte){
+					$url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>$url['params']);
+				}else{
+					//if a connection action asked
+					if($url['page']=='connexion' && $url['action'] != 'accueil'){
+						$url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>array());
+					}else{
+						Controller::redirectSmart('connexion', 'index');
+					}
+				}
+			}else{
+				Controller::redirectSmart($url['page'], 'index');
+			}
+		}else{
+			Controller::redirectSmart($url['page'], 'index');
+		}
+	}else{
+		Controller::redirectSmart('common', 'error404');
+	}
+} else { 
+	//if user logged
+	if($estConnecte){
+		Controller::redirectSmart('connexion', 'accueil');
+	}else{
+		Controller::redirectSmart('connexion', 'index');
+	}
 }
+
+
+
+
+
+
 
 include("vues/v_entete.php") ;
 
-# selon action demandée
-switch($uc){
-	case 'connexion':{
-		include("controleurs/c_connexion.php");break;
-	}
-	case 'gererFrais' :{
-		include("controleurs/c_gererFrais.php");break;
-	}
-	case 'etatFrais' :{
-		include("controleurs/c_etatFrais.php");break; 
-	}
-}
+#CONTROLLER INVOCATION
+$oController = new $controllerName($url['action'], $url['params']); //controller instanciation
 
 include("vues/v_pied.php") ;

@@ -24,6 +24,10 @@ function connecter($id,$nom,$prenom){
 	$_SESSION['idVisiteur']= $id; 
 	$_SESSION['nom']= $nom;
 	$_SESSION['prenom']= $prenom;
+
+	// $_SESSION['connected'] = true;
+	// $_SESSION['role'] = 'visiteur';
+	// $_SESSION['role'] = 'gestionnaire';
 }
 /**
  * Détruit la session active
