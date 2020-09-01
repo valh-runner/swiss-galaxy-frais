@@ -1,6 +1,6 @@
 ﻿<div id="contenu">
       <h2>Identification utilisateur</h2>
-      <form method="POST" action="/connexion/valideConnexion">
+      <form method="POST" action="/connexion/index">
             <p>
                   <label for="nom">Login*</label>
                   <input id="login" type="text" name="login" size="30" maxlength="45">

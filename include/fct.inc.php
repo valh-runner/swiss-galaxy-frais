@@ -185,10 +185,10 @@ function valideInfosFrais($dateFrais,$libelle,$montant){
  * @param $msg : le libellé de l'erreur 
  */
 function ajouterErreur($msg){
-	if (!isset($_REQUEST['erreurs'])){
-		$_REQUEST['erreurs']=array();
+	if (!isset($_SESSION['erreurs'])){
+		$_SESSION['erreurs']=array();
 	} 
-	$_REQUEST['erreurs'][]=$msg;
+	$_SESSION['erreurs'][]=$msg;
 }
 /**
  * Retoune le nombre de lignes du tableau des erreurs 
@@ -196,9 +196,9 @@ function ajouterErreur($msg){
  * @return le nombre d'erreurs
  */
 function nbErreurs(){
-   	if (!isset($_REQUEST['erreurs'])){
+   	if (!isset($_SESSION['erreurs'])){
 	   return 0;
 	} else {
-	   return count($_REQUEST['erreurs']);
+	   return count($_SESSION['erreurs']);
 	}
 }

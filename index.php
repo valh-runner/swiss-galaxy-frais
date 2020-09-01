@@ -53,11 +53,11 @@ if( !empty($url['page'])){
 			if(method_exists($controllerName, $methodName)){
 				//if user logged
 				if($estConnecte){
-					$url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>$url['params']);
+					$url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>$url['params']); // Let pass
 				}else{
 					//if a connection action asked
-					if($url['page']=='connexion' && $url['action'] != 'accueil'){
-						$url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>array());
+					if($url['page']=='connexion' && $url['action'] == 'index'){
+						$url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>array()); // Let pass
 					}else{
 						Controller::redirectSmart('connexion', 'index');
 					}

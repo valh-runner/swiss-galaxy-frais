@@ -1,11 +1,9 @@
 ﻿ <div id="contenu">
    <h2>Mes fiches de frais</h2>
    <h3>Mois à sélectionner : </h3>
-   <form action="/etatFrais/voirEtatFrais" method="post">
+   <form action="/etatFrais/index" method="post">
      <div class="corpsForm">
-
        <p>
-
          <label for="lstMois" accesskey="n">Mois : </label>
          <select id="lstMois" name="lstMois">
            <?php
@@ -22,9 +20,7 @@
            <?php
               }
             }
-
             ?>
-
          </select>
        </p>
      </div>
@@ -34,5 +30,5 @@
          <input id="annuler" type="reset" value="Effacer" size="20" />
        </p>
      </div>
-
    </form>
+   
