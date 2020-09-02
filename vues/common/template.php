@@ -50,8 +50,10 @@
                 ?>
             </ul>
         </div>
-
-        <?= $content_for_layout ?>
+        
+        <div id="contenu">
+            <?= $content_for_layout ?>
+        </div>
     </div>
 </body>
 

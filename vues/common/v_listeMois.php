@@ -1,4 +1,4 @@
-﻿<div id="contenu">
+﻿<div id="my-liste-mois">
   <h2>Mes fiches de frais</h2>
   <h3>Mois à sélectionner : </h3>
   <form action="/etatFrais/index" method="post">

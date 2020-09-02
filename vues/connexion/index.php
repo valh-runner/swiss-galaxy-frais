@@ -1,4 +1,4 @@
-<div id="contenu">
+<div id="my-connexion-block">
     <h2>Identification utilisateur</h2>
     <form method="POST" action="/connexion/index">
         <p>

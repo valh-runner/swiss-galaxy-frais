@@ -7,8 +7,10 @@ class Controller
 	function __construct($urlAction, $urlParams)
 	{
 		$deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $urlAction))));
-		call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
-		$this->callView($urlAction);
+        call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
+        
+        $deducedPage = strtolower(str_replace('_controller', '', get_class($this))); //voir si c mieux de récup directement $url['page']
+		$this->callView($deducedPage, $urlAction, $this->vars);
 	}
 
 	function set($varname, $var)
@@ -16,14 +18,7 @@ class Controller
 		$this->vars[$varname] = $var;
 	}
 
-	function callView($view)
-	{
-		$deducedPage = strtolower(str_replace('_controller', '', get_class($this))); //voir si c mieux de r�cup directement $url['page']
-		// $oView = new View($deducedPage, $view, $this->vars, $this->noView);
-		$this->render($deducedPage, $view, $this->vars);
-	}
-
-	function render($page, $view, $vars = array())
+	function callView($page, $view, $vars = array())
 	{
 		extract($vars);
 

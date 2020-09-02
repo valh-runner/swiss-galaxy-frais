@@ -1,4 +1,4 @@
-<div id="contenu">
+<div id="my-liste-frais-forfait">
   <h2>Renseigner ma fiche de frais du mois <?php echo $numMois . "-" . $numAnnee ?></h2>
   <form method="POST" action="/gererFrais/validerMajFraisForfait">
     <div class="corpsForm">
