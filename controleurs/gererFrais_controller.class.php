@@ -6,6 +6,8 @@ class GererFrais_controller extends Controller
 
 	function index()
 	{
+        Controller::accessOnly(['visiteur']);
+
 		$idVisiteur = $_SESSION['idVisiteur'];
 		$mois = getMois(date("d/m/Y"));
 		$pdo = PdoGsb::getPdoGsb();
@@ -28,6 +30,8 @@ class GererFrais_controller extends Controller
 
 	function validerMajFraisForfait()
 	{
+        Controller::accessOnly(['visiteur']);
+
 		$idVisiteur = $_SESSION['idVisiteur'];
 		$mois = getMois(date("d/m/Y"));
 
@@ -44,6 +48,8 @@ class GererFrais_controller extends Controller
 
 	function validerCreationFrais()
 	{
+        Controller::accessOnly(['visiteur']);
+        
 		$idVisiteur = $_SESSION['idVisiteur'];
 		$mois = getMois(date("d/m/Y"));
 

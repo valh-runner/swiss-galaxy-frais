@@ -22,11 +22,15 @@
                 </div>
                 <ul id="menuList">
                     <li>
-                        Visiteur :<br>
+                        <?php echo ucFirst($_SESSION['role']) ?> :<br>
                         <?php echo $_SESSION['prenom'] . "  " . $_SESSION['nom']  ?>
                     </li>
+                    <?php
+                    switch($_SESSION['role']): 
+                        case 'visiteur':
+                    ?>
                     <li class="smenu">
-                        <a href="/gererFrais/index" title="Saisie fiche de frais ">Saisie fiche de frais</a>
+                        <a href="/gererFrais/index" title="Saisie fiche de frais">Saisie fiche de frais</a>
                     </li>
                     <li class="smenu">
                         <a href="/etatFrais/index" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
@@ -34,6 +38,23 @@
                     <li class="smenu">
                         <a href="/connexion/deconnexion" title="Se déconnecter">Déconnexion</a>
                     </li>
+                    <?php 
+                        break;
+                        case 'comptable':
+                    ?>
+                    <li class="smenu">
+                        <a href="/validerFrais/index" title="Valider une fiche de frais">Valider fiche de frais</a>
+                    </li>
+                    <li class="smenu">
+                        <a href="/suivreFrais/index" title="Suivre le paiement d'une fiche de frais">Suivre fiche de frais</a>
+                    </li>
+                    <li class="smenu">
+                        <a href="/connexion/deconnexion" title="Se déconnecter">Déconnexion</a>
+                    </li>
+                    <?php
+                        break;
+                    endswitch;
+                    ?>
                 </ul>
             </div>
         <?php endif; ?>

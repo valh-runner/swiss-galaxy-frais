@@ -22,11 +22,12 @@ function estConnecte()
  * @param $nom
  * @param $prenom
  */
-function connecter($id, $nom, $prenom)
+function connecter($id, $nom, $prenom, $role)
 {
     $_SESSION['idVisiteur'] = $id;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+    $_SESSION['role'] = $role;
 
     // $_SESSION['connected'] = true;
     // $_SESSION['role'] = 'visiteur';
@@ -121,6 +122,17 @@ function estDateDepassee($dateTestee)
     return ($anneeTeste . $moisTeste . $jourTeste < $AnPasse);
 }
 /**
+ * Vérifie si une date est supérieure à la date actuelle
+ 
+ * @param $dateTestee 
+ * @return vrai ou faux
+ */
+function estDateFuture($dateTestee)
+{
+    $dateActuelle = date("d/m/Y");
+    return ($dateTestee > $dateActuelle);
+}
+/**
  * Vérifie la validité du format d'une date française jj/mm/aaaa 
  
  * @param $date 
@@ -172,7 +184,11 @@ function valideInfosFrais($dateFrais, $libelle, $montant)
             ajouterErreur("Date invalide");
         } else {
             if (estDateDepassee($dateFrais)) {
-                ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an");
+                ajouterErreur("Date d'enregistrement du frais dépassé, plus de 1 an");
+            } else {
+                if (estDateFuture($dateFrais)) {
+                    ajouterErreur("La date d'enregistrement du frais n'a pas encore eu lieu");
+                }
             }
         }
     }

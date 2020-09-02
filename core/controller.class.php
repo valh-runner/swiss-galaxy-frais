@@ -50,5 +50,11 @@ class Controller
 		//header('Location: /mymvc/'.$url['page'].'html', 301);
 		header('Location: ' . URLROOT . $urlPage . '/' . $urlAction);
 		exit();
-	}
+    }
+    
+    static function accessOnly(array $roles){
+        if(!in_array($_SESSION['role'], $roles)){
+            Controller::redirectSmart('connexion', 'accueil');
+        }
+    }
 }

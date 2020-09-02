@@ -6,6 +6,8 @@ class EtatFrais_controller extends Controller
 
 	function index()
 	{
+        Controller::accessOnly(['visiteur']);
+        
 		$idVisiteur = $_SESSION['idVisiteur'];
 		$pdo = PdoGsb::getPdoGsb();
 		$lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
