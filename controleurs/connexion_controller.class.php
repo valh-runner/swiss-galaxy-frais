@@ -23,13 +23,10 @@ class Connexion_controller extends Controller
 				Controller::redirectSmart('connexion', 'accueil');
 			}
 		}
-
-		include("vues/v_connexion.php");
 	}
 
 	function accueil(){
-		include("vues/v_sommaire.php");
-		include("vues/v_accueil.php");
+		
 	}
 
 	function deconnexion(){

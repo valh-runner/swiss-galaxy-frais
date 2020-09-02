@@ -1,30 +1,54 @@
 <?php
-class Controller{
-	
+class Controller
+{
+
 	private $vars = array();
-	public $noView = false;
-	
-	function __construct($urlAction, $urlParams){
-        $deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $urlAction))));
-		call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
+
+	function __construct($urlAction, $urlParams)
+	{
+		$deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $urlAction))));
+        call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
+        
+        $deducedPage = strtolower(str_replace('_controller', '', get_class($this))); //voir si c mieux de récup directement $url['page']
+		$this->callView($deducedPage, $urlAction, $this->vars);
 	}
-	
-	function set($varname, $var){
+
+	function set($varname, $var)
+	{
 		$this->vars[$varname] = $var;
 	}
-	
-	static function redirect(array $url){
+
+	function callView($page, $view, $vars = array())
+	{
+		extract($vars);
+
+		$viewPath = 'vues/' . $page . '/' . $view . '.php';
+		//if view exists
+		if (is_file($viewPath)) {
+			ob_start();
+			require(ROOT . $viewPath);
+			$content_for_layout = ob_get_clean();
+		} else {
+			$content_for_layout = 'NO VIEW';
+		}
+
+		require(ROOT . 'vues/common/template.php');
+		exit(); //fin de la réponse
+	}
+
+	static function redirect(array $url)
+	{
 		header('HTTP/1.1 301 Moved Permanently');
 		//header('Location: /mymvc/'.$url['page'].'html', 301);
-		header('Location: '.URLROOT.$url['page'].'/'.$url['action']);
+		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action']);
 		exit();
 	}
-	
-	static function redirectSmart(String $urlPage, String $urlAction){
+
+	static function redirectSmart(String $urlPage, String $urlAction)
+	{
 		header('HTTP/1.1 301 Moved Permanently');
 		//header('Location: /mymvc/'.$url['page'].'html', 301);
-		header('Location: '.URLROOT.$urlPage.'/'.$urlAction);
+		header('Location: ' . URLROOT . $urlPage . '/' . $urlAction);
 		exit();
 	}
-	
 }

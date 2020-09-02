@@ -6,9 +6,7 @@ class EtatFrais_controller extends Controller
 
 	function index()
 	{
-		include("vues/v_sommaire.php");
 		$idVisiteur = $_SESSION['idVisiteur'];
-
 		$pdo = PdoGsb::getPdoGsb();
 		$lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
 
@@ -16,13 +14,11 @@ class EtatFrais_controller extends Controller
 		if(empty($_REQUEST['lstMois'])){
 			$lesCles = array_keys($lesMois);
 			$moisASelectionner = $lesCles[0];// Afin de sélectionner par défaut le dernier mois dans la zone de liste
-			include("vues/v_listeMois.php");
 		}else{
 			$leMois = $_REQUEST['lstMois'];
 			$moisASelectionner = $leMois;
 			$numAnnee = substr($leMois, 0, 4);
 			$numMois = substr($leMois, 4, 2);
-			include("vues/v_listeMois.php");
 
 			$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
 			$lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
@@ -32,7 +28,20 @@ class EtatFrais_controller extends Controller
 			$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
 			$dateModif =  $lesInfosFicheFrais['dateModif'];
 			$dateModif =  dateAnglaisVersFrancais($dateModif);
-			include("vues/v_etatFrais.php");
+
+			$this->set('lesFraisForfait', $lesFraisForfait);
+			$this->set('numMois', $numMois);
+			$this->set('numAnnee', $numAnnee);
+
+			$this->set('lesFraisHorsForfait', $lesFraisHorsForfait);
+
+			$this->set('libEtat', $libEtat);
+			$this->set('montantValide', $montantValide);
+			$this->set('nbJustificatifs', $nbJustificatifs);
+			$this->set('dateModif', $dateModif);
 		}
+
+		$this->set('lesMois', $lesMois);
+		$this->set('moisASelectionner', $moisASelectionner);
 	}
 }

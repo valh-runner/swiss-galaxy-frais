@@ -6,9 +6,6 @@ class GererFrais_controller extends Controller
 
 	function index()
 	{
-		include("vues/v_sommaire.php");
-		include("vues/v_erreurs.php");
-
 		$idVisiteur = $_SESSION['idVisiteur'];
 		$mois = getMois(date("d/m/Y"));
 		$pdo = PdoGsb::getPdoGsb();
@@ -21,8 +18,12 @@ class GererFrais_controller extends Controller
 		$numMois = substr($mois, 4, 2); //used by included v_listeFraisForfait.php
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
 		$lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
-		include("vues/v_listeFraisForfait.php");
-		include("vues/v_listeFraisHorsForfait.php");
+
+		$this->set('lesFraisForfait', $lesFraisForfait);
+		$this->set('numMois', $numMois);
+		$this->set('numAnnee', $numAnnee);
+
+		$this->set('lesFraisHorsForfait', $lesFraisHorsForfait);
 	}
 
 	function validerMajFraisForfait()

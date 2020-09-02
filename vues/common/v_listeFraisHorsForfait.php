@@ -27,7 +27,6 @@
 
 <form action="/gererFrais/validerCreationFrais" method="post">
   <div class="corpsForm">
-
     <fieldset>
       <legend>Nouvel élément hors forfait
       </legend>
@@ -52,4 +51,3 @@
     </p>
   </div>
 </form>
-</div>
