@@ -13,7 +13,7 @@
  */
 function estConnecte()
 {
-    return isset($_SESSION['idVisiteur']);
+    return isset($_SESSION['idUser']);
 }
 /**
  * Enregistre dans une variable session les infos d'un visiteur
@@ -24,14 +24,10 @@ function estConnecte()
  */
 function connecter($id, $nom, $prenom, $role)
 {
-    $_SESSION['idVisiteur'] = $id;
+    $_SESSION['idUser'] = $id;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
     $_SESSION['role'] = $role;
-
-    // $_SESSION['connected'] = true;
-    // $_SESSION['role'] = 'visiteur';
-    // $_SESSION['role'] = 'gestionnaire';
 }
 /**
  * Détruit la session active
@@ -225,5 +221,30 @@ function nbErreurs()
         return 0;
     } else {
         return count($_SESSION['erreurs']);
+    }
+}
+/**
+ * Ajoute le libellé d'une info au tableau des infos 
+ 
+ * @param $msg : le libellé de l'info 
+ */
+function ajouterInfo($msg)
+{
+    if (!isset($_SESSION['infos'])) {
+        $_SESSION['infos'] = array();
+    }
+    $_SESSION['infos'][] = $msg;
+}
+/**
+ * Retoune le nombre de lignes du tableau des infos 
+ 
+ * @return le nombre d'infos
+ */
+function nbInfos()
+{
+    if (!isset($_SESSION['infos'])) {
+        return 0;
+    } else {
+        return count($_SESSION['infos']);
     }
 }

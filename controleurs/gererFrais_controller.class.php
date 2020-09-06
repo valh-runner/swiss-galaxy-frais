@@ -8,12 +8,12 @@ class GererFrais_controller extends Controller
 	{
         Controller::accessOnly(['visiteur']);
 
-		$idVisiteur = $_SESSION['idVisiteur'];
+		$idVisiteur = $_SESSION['idUser'];
 		$mois = getMois(date("d/m/Y"));
 		$pdo = PdoGsb::getPdoGsb();
 
-		if ($pdo->estPremierFraisMois($idVisiteur, $mois)) { // si pas encore de fiche de frais pour le mois en cours
-			$pdo->creeNouvellesLignesFrais($idVisiteur, $mois); // création fiche de frais pour le mois en cours et cloture fiche précédente
+		if ($pdo->estPremierFraisMois($idVisiteur, $mois)) { // si pas encore de fiche pour le mois actuel
+			$pdo->creeNouvellesLignesFrais($idVisiteur, $mois); // création fiche et cloture fiche précédente
 		}
 
 		$numAnnee = substr($mois, 0, 4); //used by included v_listeFraisForfait.php
@@ -25,14 +25,14 @@ class GererFrais_controller extends Controller
 		$this->set('numMois', $numMois);
 		$this->set('numAnnee', $numAnnee);
 
-		$this->set('lesFraisHorsForfait', $lesFraisHorsForfait);
+        $this->set('lesFraisHorsForfait', $lesFraisHorsForfait);
 	}
 
 	function validerMajFraisForfait()
 	{
         Controller::accessOnly(['visiteur']);
 
-		$idVisiteur = $_SESSION['idVisiteur'];
+		$idVisiteur = $_SESSION['idUser'];
 		$mois = getMois(date("d/m/Y"));
 
 		$pdo = PdoGsb::getPdoGsb();
@@ -50,7 +50,7 @@ class GererFrais_controller extends Controller
 	{
         Controller::accessOnly(['visiteur']);
         
-		$idVisiteur = $_SESSION['idVisiteur'];
+		$idVisiteur = $_SESSION['idUser'];
 		$mois = getMois(date("d/m/Y"));
 
 		$pdo = PdoGsb::getPdoGsb();

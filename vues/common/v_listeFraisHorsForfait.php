@@ -7,22 +7,14 @@
     <th class="montant">Montant</th>
     <th class="action">&nbsp;</th>
   </tr>
-  <?php
-  foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
-    $libelle = $unFraisHorsForfait['libelle'];
-    $date = $unFraisHorsForfait['date'];
-    $montant = $unFraisHorsForfait['montant'];
-    $id = $unFraisHorsForfait['id'];
-  ?>
+  <?php foreach ($lesFraisHorsForfait as $unFraisHorsForfait): ?>
     <tr>
-      <td><?php echo $date ?></td>
-      <td><?php echo $libelle ?></td>
-      <td><?php echo $montant ?></td>
-      <td><a href="/gererFrais/supprimerFrais/<?php echo $id ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
+      <td><?php echo $unFraisHorsForfait['date'] ?></td>
+      <td><?php echo $unFraisHorsForfait['libelle'] ?></td>
+      <td><?php echo $unFraisHorsForfait['montant'] ?></td>
+      <td><a href="/gererFrais/supprimerFrais/<?php echo $unFraisHorsForfait['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
     </tr>
-  <?php
-  }
-  ?>
+  <?php endforeach; ?>
 </table>
 
 <form action="/gererFrais/validerCreationFrais" method="post">
@@ -36,7 +28,7 @@
       </p>
       <p>
         <label for="txtLibelleHF">Libellé</label>
-        <input type="text" id="txtLibelleHF" name="libelle" size="70" maxlength="256" value="" />
+        <input type="text" id="txtLibelleHF" name="libelle" size="70" maxlength="100" value="" />
       </p>
       <p>
         <label for="txtMontantHF">Montant : </label>

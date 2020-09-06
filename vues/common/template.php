@@ -14,7 +14,7 @@
             <h1>Suivi du remboursement des frais</h1>
         </div>
 
-        <?php if (!empty($_SESSION['idVisiteur'])) : ?>
+        <?php if (!empty($_SESSION['idUser'])) : ?>
             <div id="menuGauche">
                 <div id="infosUtil">
                     <h2>
@@ -67,6 +67,18 @@
                         echo "<li>$erreur</li>";
                     }
                     unset($_SESSION['erreurs']); //suppression erreurs affichées
+                }
+                ?>
+            </ul>
+        </div>
+        <div class="info">
+            <ul>
+                <?php
+                if (!empty($_SESSION['infos'])) {
+                    foreach ($_SESSION['infos'] as $info) {
+                        echo "<li>$info</li>";
+                    }
+                    unset($_SESSION['infos']); //suppression infos affichées
                 }
                 ?>
             </ul>
