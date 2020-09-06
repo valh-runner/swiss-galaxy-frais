@@ -10,8 +10,8 @@ class validerFrais_controller extends Controller
         
         //Si affichage d'une fiche de frais d'un visiteur demandé par formulaire
         if(!empty($_POST['lstVisiteur'])){
-            $postIdVisiteur = $_POST['lstVisiteur'];
-            $leMois = $_POST['lstMois'];
+            $postIdVisiteur = sanitize($_POST['lstVisiteur']);
+            $leMois = sanitize($_POST['lstMois']);
             Controller::redirectSmart('validerFrais', 'index', [$postIdVisiteur, $leMois]);
         }
 
@@ -33,7 +33,7 @@ class validerFrais_controller extends Controller
 
         $afficherFiche = false;
 		//Si affichage d'une fiche de frais d'un visiteur demandé par url
-		if(!empty($idVisiteurAsked) && !empty($moisAsked)){ //TODO: check if visitor existe then if he have a sheet for asked month
+		if(!empty($idVisiteurAsked) && !empty($moisAsked)){
             $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteurAsked, $moisAsked);
             //si le visiteur n'a pas de fiche pour le mois demandé
             if($lesInfosFicheFrais == null){
@@ -69,11 +69,11 @@ class validerFrais_controller extends Controller
 	{
         Controller::accessOnly(['comptable']);
 
-		$idVisiteur = $_POST['hiddenIdVisiteur'];
-		$mois = $_POST['hiddenMoisFiche'];
+		$idVisiteur = sanitize($_POST['hiddenIdVisiteur']);
+		$mois = sanitize($_POST['hiddenMoisFiche']);
 
 		$pdo = PdoGsb::getPdoGsb();
-		$lesFrais = $_POST['lesFrais'];
+		$lesFrais = sanitize($_POST['lesFrais']);
 		if (lesQteFraisValides($lesFrais)) {
 			$pdo->majFraisForfait($idVisiteur, $mois, $lesFrais);
 			ajouterInfo("Les modifications ont été prise en compte");

@@ -13,11 +13,11 @@ class EtatFrais_controller extends Controller
 		$lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
 
 		//Si affichage d'un mois demandé
-		if(empty($_REQUEST['lstMois'])){
+		if(empty($_POST['lstMois'])){
 			$lesCles = array_keys($lesMois);
 			$moisASelectionner = $lesCles[0];// Afin de sélectionner par défaut le dernier mois dans la zone de liste
 		}else{
-			$leMois = $_REQUEST['lstMois'];
+			$leMois = sanitize($_POST['lstMois']);
 			$moisASelectionner = $leMois;
 			$numAnnee = substr($leMois, 0, 4);
 			$numMois = substr($leMois, 4, 2);

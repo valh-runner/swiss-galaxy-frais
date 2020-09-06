@@ -9,7 +9,7 @@ class Controller
 		$deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $urlAction))));
         call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
         
-        $deducedPage = strtolower(str_replace('_controller', '', get_class($this))); //voir si c mieux de récup directement $url['page']
+        $deducedPage = strtolower(str_replace('_controller', '', get_class($this)));
 		$this->callView($deducedPage, $urlAction, $this->vars);
 	}
 
@@ -39,24 +39,22 @@ class Controller
 	static function redirect(array $url)
 	{
 		header('HTTP/1.1 301 Moved Permanently');
-        //header('Location: /mymvc/'.$url['page'].'html', 301);
         $urlEnd = '';
         if(!empty($url['params'])){
             foreach($url['params'] as $param){ $urlEnd .= '/'.$param; }
         }
-		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action'] . $urlEnd);
+		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action'] . $urlEnd, 302);
 		exit();
 	}
 
 	static function redirectSmart(String $urlPage, String $urlAction, array $params = array())
 	{
 		header('HTTP/1.1 301 Moved Permanently');
-        //header('Location: /mymvc/'.$url['page'].'html', 301);
         $urlEnd = '';
         if(!empty($params)){
             foreach($params as $param){ $urlEnd .= '/'.$param; }
         }
-        header('Location: ' . URLROOT . $urlPage . '/' . $urlAction . $urlEnd);
+        header('Location: ' . URLROOT . $urlPage . '/' . $urlAction . $urlEnd, 302);
 		exit();
     }
     

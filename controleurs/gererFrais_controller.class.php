@@ -36,7 +36,7 @@ class GererFrais_controller extends Controller
 		$mois = getMois(date("d/m/Y"));
 
 		$pdo = PdoGsb::getPdoGsb();
-		$lesFrais = $_REQUEST['lesFrais'];
+		$lesFrais = sanitize($_POST['lesFrais']);
 		if (lesQteFraisValides($lesFrais)) {
 			$pdo->majFraisForfait($idVisiteur, $mois, $lesFrais);
 		} else {
@@ -54,9 +54,9 @@ class GererFrais_controller extends Controller
 		$mois = getMois(date("d/m/Y"));
 
 		$pdo = PdoGsb::getPdoGsb();
-		$dateFrais = $_REQUEST['dateFrais'];
-		$libelle = $_REQUEST['libelle'];
-		$montant = $_REQUEST['montant'];
+		$dateFrais = sanitize($_POST['dateFrais']);
+		$libelle = sanitize($_POST['libelle']);
+		$montant = sanitize($_POST['montant']);
 
 		valideInfosFrais($dateFrais, $libelle, $montant);
 

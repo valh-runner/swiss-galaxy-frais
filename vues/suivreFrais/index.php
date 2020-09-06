@@ -11,7 +11,7 @@
                             (strlen($ficheASuivre['idVisiteur']) > 3 ? '&nbsp;-&nbsp;' : '&nbsp;&nbsp;-&nbsp;')
                             : '&nbsp;&nbsp;&nbsp;-&nbsp;';
                         ?>
-                        <?php if($ficheASuivre['idVisiteur'] . '-' . $ficheASuivre['mois'] == $_POST['lstFiche']): ?>
+                        <?php if($ficheASuivre['idVisiteur'] . '-' . $ficheASuivre['mois'] == sanitize($_POST['lstFiche'])): ?>
                             <option selected value="<?php echo $ficheASuivre['idVisiteur'] . '-' . $ficheASuivre['mois'] ?>"><?php echo  $ficheASuivre['idEtat']. ' | ' . $ficheASuivre['idVisiteur'] . $spacer . substr($ficheASuivre['mois'], 0, 4).'-'.substr($ficheASuivre['mois'], 4, 2) . ' | ' . $ficheASuivre['nom'] . ' ' . $ficheASuivre['prenom'] ?> </option>
                         <?php else: ?>
                             <option value="<?php echo $ficheASuivre['idVisiteur'] . '-' . $ficheASuivre['mois'] ?>"><?php echo  $ficheASuivre['idEtat']. ' | ' . $ficheASuivre['idVisiteur'] . $spacer . substr($ficheASuivre['mois'], 0, 4).'-'.substr($ficheASuivre['mois'], 4, 2) . ' | ' . $ficheASuivre['nom'] . ' ' . $ficheASuivre['prenom'] ?> </option>

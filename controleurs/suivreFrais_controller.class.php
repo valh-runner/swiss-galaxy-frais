@@ -16,7 +16,7 @@ class suivreFrais_controller extends Controller
 		//Si affichage d'une fiche de frais d'un visiteur demandé
 		if(!empty($_POST['lstFiche'])){
 
-            $ficheDemandee = explode('-', $_POST['lstFiche']);
+            $ficheDemandee = explode('-', sanitize($_POST['lstFiche']));
             $idVisiteur = $ficheDemandee[0];
             $leMois = $ficheDemandee[1];
 

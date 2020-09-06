@@ -126,7 +126,7 @@ function estDateDepassee($dateTestee)
 function estDateFuture($dateTestee)
 {
     $dateActuelle = date("d/m/Y");
-    return ($dateTestee > $dateActuelle);
+    return (strtotime($dateTestee) > strtotime($dateActuelle));
 }
 /**
  * Vérifie la validité du format d'une date française jj/mm/aaaa 
@@ -247,4 +247,15 @@ function nbInfos()
     } else {
         return count($_SESSION['infos']);
     }
+}
+
+function sanitize($entreeUtilisateur){
+    if(is_array($entreeUtilisateur)){
+        foreach($entreeUtilisateur as $entree ){
+            $entree = sanitize($entree);
+        }
+    }else{
+        $entreeUtilisateur = htmlentities(trim($entreeUtilisateur));
+    }
+    return $entreeUtilisateur;
 }

@@ -103,6 +103,4 @@
             <input type="submit" value="Valider la fiche de frais" onclick="return confirm('Voulez-vous vraiment valider la fiche de frais?');">
         </form>
     </p>
-
-
 <?php endif;

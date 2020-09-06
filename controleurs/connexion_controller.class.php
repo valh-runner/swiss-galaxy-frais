@@ -8,8 +8,8 @@ class Connexion_controller extends Controller
     {
         if (!empty($_POST['login']) && !empty($_POST['mdp'])) {
             $pdo = PdoGsb::getPdoGsb();
-            $login = $_POST['login']; //TODO: secure user data input
-            $mdp = $_POST['mdp']; //TODO: secure user data input
+            $login = sanitize($_POST['login']);
+            $mdp = sanitize($_POST['mdp']);
 
             if (is_array($user = $pdo->getInfosVisiteur($login, $mdp))) {
                 connecter($user['id'], $user['nom'], $user['prenom'], 'visiteur'); // mise en variables session idVisiteur, nom et prenom
