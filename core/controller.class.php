@@ -39,16 +39,30 @@ class Controller
 	static function redirect(array $url)
 	{
 		header('HTTP/1.1 301 Moved Permanently');
-		//header('Location: /mymvc/'.$url['page'].'html', 301);
-		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action']);
+        //header('Location: /mymvc/'.$url['page'].'html', 301);
+        $urlEnd = '';
+        if(!empty($url['params'])){
+            foreach($url['params'] as $param){ $urlEnd .= '/'.$param; }
+        }
+		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action'] . $urlEnd);
 		exit();
 	}
 
-	static function redirectSmart(String $urlPage, String $urlAction)
+	static function redirectSmart(String $urlPage, String $urlAction, array $params = array())
 	{
 		header('HTTP/1.1 301 Moved Permanently');
-		//header('Location: /mymvc/'.$url['page'].'html', 301);
-		header('Location: ' . URLROOT . $urlPage . '/' . $urlAction);
+        //header('Location: /mymvc/'.$url['page'].'html', 301);
+        $urlEnd = '';
+        if(!empty($params)){
+            foreach($params as $param){ $urlEnd .= '/'.$param; }
+        }
+        header('Location: ' . URLROOT . $urlPage . '/' . $urlAction . $urlEnd);
 		exit();
-	}
+    }
+    
+    static function accessOnly(array $roles){
+        if(!in_array($_SESSION['role'], $roles)){
+            Controller::redirectSmart('connexion', 'accueil');
+        }
+    }
 }

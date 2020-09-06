@@ -49,18 +49,18 @@ body{
 	margin-left: 18%;
 /* permet de fixer une hauteur mini sur les navigateurs modernes */
   min-height:27em;
-/* pour obtenir le m�me effet sur IE, sachant que si le contenu d�passe, il
+/* pour obtenir le même effet sur IE, sachant que si le contenu dépasse, il
 "poussera" la hauteur en ne respectant pas la norme. On se joue de ses lacunes
 */
   height:27em;
 }
 
-/* pour r�tablir le mauvais effet sur les nav. modernes */
+/* pour rétablir le mauvais effet sur les nav. modernes */
 html>body #contenu{
   height:auto;
 }
 
-/* style � appliquer � la balise ul d'identifiant menulist */
+/* style à appliquer à la balise ul d'identifiant menulist */
 ul#menuList{
     list-style:none;
     margin:0px;
@@ -69,14 +69,14 @@ ul#menuList{
     font-size: 1em;
 }
 
-/* style � appliquer aux �l�ments de la balise ul d'identifiant menulist */
+/* style à appliquer aux éléments de la balise ul d'identifiant menulist */
 ul#menuList li {
     position:relative;
     margin:0px;
     padding:0px;
 }
 
-/* apparences des liens dans listes et sous-listes non num�rot�es */
+/* apparences des liens dans listes et sous-listes non numérotées */
 ul#menuList a {
     color:rgb(0,85,227);
     display:block;
@@ -126,6 +126,7 @@ ul#menuList a:hover {
   border-bottom-width:1px;
   margin-bottom : 0em;
   width : 95%;
+  text-align:center;
 }
 .piedForm {
   border-bottom-width : 0.1em;
@@ -146,9 +147,9 @@ form {
   font-size:1.2em;
 }
 .corpsForm label{
-  float: left;
+  /* float: left; */
   text-align:right;
-  width:33%;
+  /* width:33%; */
 	margin: 0;
 	padding: 0 .5em 0 0;
 	line-height: 1.8;	
@@ -169,7 +170,7 @@ input:hover, textarea:hover, select:hover{
 }
 
 /*  Le texte des messages d'erreur est de couleur rose sur fond ocre et de 
-taille de caract�res l�g�rement sup�rieure � la normale */
+taille de caractères légèrement supérieure à la normale */
 .erreur{ 
    background-color:rgb(237,210,229);
    color:rgb(203,28,128);
@@ -198,7 +199,7 @@ taille de caract�res l�g�rement sup�rieure � la normale */
 }
 
 /* Style pour les liens de la page principale */
-#contenu a {
+a {
    font-size : 1.1em;
    color:gray;
    text-decoration:none;
@@ -224,7 +225,7 @@ taille de caract�res l�g�rement sup�rieure � la normale */
    border-collapse : collapse;
 }
 
-/* Style pour les lignes d'en-t�te des tableaux */
+/* Style pour les lignes d'en-tête des tableaux */
 #contenu th {  
    background-color:#77AADD;
    height:21px;
@@ -247,7 +248,7 @@ table.listeLegere {
     margin-bottom : 0.5em;
 }
 
-/* Tableaux quadrill�s utilis�s pour l'affichage de listes avec contenu l�ger*/ 
+/* Tableaux quadrillés utilisés pour l'affichage de listes avec contenu léger*/ 
 table.listeLegere th, table.listeLegere td {
   border : dotted rgb(178,207,81) 0.1em;
   padding:0.5em;
@@ -292,4 +293,35 @@ table.listeLegere th.libelle{
   height : 28px;
   float : left;
 
+}
+
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
+
+a.not-active {
+    font-size : 1.1em;
+    color:rgb(182, 182, 182);
+    text-decoration:none;
+ }
+
+a.not-active:hover {
+    font-size : 1.1em;
+    color:rgb(182, 182, 182);
+    text-decoration:none;
+ }
+
+.align-right {
+    text-align : right;
+}
+
+p.end-actions {
+    padding-top: 30px;
+}
+
+.monospace-font{
+    font-family: "Lucida Console", Monaco, monospace;
 }

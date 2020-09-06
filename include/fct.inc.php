@@ -13,7 +13,7 @@
  */
 function estConnecte()
 {
-    return isset($_SESSION['idVisiteur']);
+    return isset($_SESSION['idUser']);
 }
 /**
  * Enregistre dans une variable session les infos d'un visiteur
@@ -22,15 +22,12 @@ function estConnecte()
  * @param $nom
  * @param $prenom
  */
-function connecter($id, $nom, $prenom)
+function connecter($id, $nom, $prenom, $role)
 {
-    $_SESSION['idVisiteur'] = $id;
+    $_SESSION['idUser'] = $id;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
-
-    // $_SESSION['connected'] = true;
-    // $_SESSION['role'] = 'visiteur';
-    // $_SESSION['role'] = 'gestionnaire';
+    $_SESSION['role'] = $role;
 }
 /**
  * Détruit la session active
@@ -121,6 +118,17 @@ function estDateDepassee($dateTestee)
     return ($anneeTeste . $moisTeste . $jourTeste < $AnPasse);
 }
 /**
+ * Vérifie si une date est supérieure à la date actuelle
+ 
+ * @param $dateTestee 
+ * @return vrai ou faux
+ */
+function estDateFuture($dateTestee)
+{
+    $dateActuelle = date("d/m/Y");
+    return ($dateTestee > $dateActuelle);
+}
+/**
  * Vérifie la validité du format d'une date française jj/mm/aaaa 
  
  * @param $date 
@@ -172,7 +180,11 @@ function valideInfosFrais($dateFrais, $libelle, $montant)
             ajouterErreur("Date invalide");
         } else {
             if (estDateDepassee($dateFrais)) {
-                ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an");
+                ajouterErreur("Date d'enregistrement du frais dépassé, plus de 1 an");
+            } else {
+                if (estDateFuture($dateFrais)) {
+                    ajouterErreur("La date d'enregistrement du frais n'a pas encore eu lieu");
+                }
             }
         }
     }
@@ -209,5 +221,30 @@ function nbErreurs()
         return 0;
     } else {
         return count($_SESSION['erreurs']);
+    }
+}
+/**
+ * Ajoute le libellé d'une info au tableau des infos 
+ 
+ * @param $msg : le libellé de l'info 
+ */
+function ajouterInfo($msg)
+{
+    if (!isset($_SESSION['infos'])) {
+        $_SESSION['infos'] = array();
+    }
+    $_SESSION['infos'][] = $msg;
+}
+/**
+ * Retoune le nombre de lignes du tableau des infos 
+ 
+ * @return le nombre d'infos
+ */
+function nbInfos()
+{
+    if (!isset($_SESSION['infos'])) {
+        return 0;
+    } else {
+        return count($_SESSION['infos']);
     }
 }

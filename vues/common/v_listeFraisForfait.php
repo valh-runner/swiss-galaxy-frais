@@ -5,19 +5,12 @@
       <fieldset>
         <legend>Eléments forfaitisés
         </legend>
-        <?php
-        foreach ($lesFraisForfait as $unFrais) {
-          $idFrais = $unFrais['idfrais'];
-          $libelle = $unFrais['libelle'];
-          $quantite = $unFrais['quantite'];
-        ?>
+        <?php foreach ($lesFraisForfait as $unFrais): ?>
           <p>
-            <label for="idFrais"><?php echo $libelle ?></label>
-            <input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais ?>]" size="10" maxlength="5" value="<?php echo $quantite ?>">
+            <label for="idFrais"><?php echo $unFrais['libelle'] ?></label>
+            <input type="text" id="idFrais" name="lesFrais[<?php echo $unFrais['idfrais'] ?>]" size="10" maxlength="5" value="<?php echo $unFrais['quantite'] ?>">
           </p>
-        <?php
-        }
-        ?>
+        <?php endforeach; ?>
       </fieldset>
     </div>
     <div class="piedForm">
