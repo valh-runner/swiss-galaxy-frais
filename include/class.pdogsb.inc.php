@@ -357,6 +357,11 @@ class PdoGsb
         PdoGsb::$monPdo->exec($req);
     }
 
+    /**
+     * Retourne le nombre de fiches de frais à cloturer
+     * 
+     *  @return int nombre de fiches à clôturer
+     */
     public function getNbrFichesACloturer()
     {
         $mois = getMois(date("d/m/Y"));
@@ -376,6 +381,11 @@ class PdoGsb
         return $laLigne['nbFichesACloturer'];
     }
 
+    /**
+     * Clôture toutes les fiches de frais à cloturer
+     * 
+     * Chaque fiche de frais à cloturer passe de l'état créée à l'état clôturée
+     */
     public function cloturerFichesACloturer()
     {
         $mois = getMois(date("d/m/Y"));
@@ -393,6 +403,12 @@ class PdoGsb
         PdoGsb::$monPdo->exec($req);
     }
 
+    /**
+     * Retourne la liste des visiteurs
+     * 
+     * Retourne l'id, le nom et le prenom de chaque visiteur
+     * @return resultset des visiteurs
+     */
     public function getLesVisiteurs()
     {
         $req = "select visiteur.id, visiteur.nom, visiteur.prenom from visiteur";
@@ -400,6 +416,12 @@ class PdoGsb
         return $rs;
     }
 
+    /**
+     * Retourne la liste des fiches cloturées ou validées et le nom et le prénom du visiteur associé
+     * 
+     * Retourne tous les champs de la fiche et le nom et le prenom du visiteur
+     * @return resultset de fiches de frais
+     */
     public function getFichesClotureesEtValidees()
     {
         $req = "SELECT fichefrais.*, visiteur.nom, visiteur.prenom FROM fichefrais, visiteur WHERE fichefrais.idVisiteur = visiteur.id AND (idEtat ='CL' OR idEtat ='VA') ORDER BY mois DESC, nom ASC, prenom ASC";

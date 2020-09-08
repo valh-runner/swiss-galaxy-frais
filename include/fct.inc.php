@@ -248,7 +248,12 @@ function nbInfos()
         return count($_SESSION['infos']);
     }
 }
-
+/**
+ * Sécurise et retourne l'entrée utilisateur passée en paramètre
+ * 
+ * @param : entrée utilisateur
+ * @return entrée utilisateur sécurisée
+ */
 function sanitize($entreeUtilisateur){
     if(is_array($entreeUtilisateur)){
         foreach($entreeUtilisateur as $entree ){
