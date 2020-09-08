@@ -11,11 +11,11 @@ define('ROOT', dirname($_SERVER['SCRIPT_FILENAME']).DS); //	F:/virtualhosts/alia
 require_once('core/controller.class.php');
 require_once("include/fct.inc.php");
 require_once("include/class.pdogsb.inc.php");
+
 session_start();
 
 #DISPATCHER
 
-// $urlParts = explode('/', strtolower($_GET['rewrite'])); //url explosion
 $urlParts = explode('/', $_GET['rewrite']); //url explosion
 foreach($urlParts as $urlPart){ //for each url part
     $urlPart = htmlspecialchars(trim($urlPart)); //sanitization

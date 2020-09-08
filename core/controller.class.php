@@ -9,7 +9,7 @@ class Controller
 		$deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $urlAction))));
         call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
         
-        $deducedPage = strtolower(str_replace('_controller', '', get_class($this)));
+        $deducedPage = lcfirst(str_replace('_controller', '', get_class($this)));
 		$this->callView($deducedPage, $urlAction, $this->vars);
 	}
 
@@ -43,7 +43,7 @@ class Controller
         if(!empty($url['params'])){
             foreach($url['params'] as $param){ $urlEnd .= '/'.$param; }
         }
-		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action'] . $urlEnd, 302);
+		header('Location: ' . URLROOT . $url['page'] . '/' . $url['action'] . $urlEnd);
 		exit();
 	}
 
@@ -54,7 +54,7 @@ class Controller
         if(!empty($params)){
             foreach($params as $param){ $urlEnd .= '/'.$param; }
         }
-        header('Location: ' . URLROOT . $urlPage . '/' . $urlAction . $urlEnd, 302);
+        header('Location: ' . URLROOT . $urlPage . '/' . $urlAction . $urlEnd);
 		exit();
     }
     

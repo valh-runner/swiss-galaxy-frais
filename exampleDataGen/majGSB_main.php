@@ -1,4 +1,4 @@
-﻿ Programme d'actualisation des lignes des tables,  
+ Programme d'actualisation des lignes des tables,  
  cette mise à jour peut prendre plusieurs minutes...
 <?php
 include("fctGenDonnees.inc.php");

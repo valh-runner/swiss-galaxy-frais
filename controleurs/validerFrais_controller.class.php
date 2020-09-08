@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once("include/class.pdogsb.inc.php");
 
 class validerFrais_controller extends Controller
